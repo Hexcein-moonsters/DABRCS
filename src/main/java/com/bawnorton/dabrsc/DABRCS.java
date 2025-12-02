@@ -13,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
+import io.papermc.lib.PaperLib;
 
 public final class DABRCS extends JavaPlugin implements Listener {
     private static final String CONFIG_SYNC_CHANNEL = "do_a_barrel_roll:config_sync";
@@ -96,7 +97,8 @@ public final class DABRCS extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        getServer().getScheduler().runTaskLater(this, () -> sendConfig(event.getPlayer()), 20L);
+        Player player = event.getPlayer();
+        PaperLib.getScheduler().runTaskLater(this, () -> sendConfig(player), 20L);
     }
 
     private void writeVarInt(ByteArrayDataOutput out, int value) {
